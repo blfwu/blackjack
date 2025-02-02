@@ -7,6 +7,9 @@ computer_cards = []
 user_score = 0
 computer_score = 0
 
+user_loses = False
+computer_loses = False
+
 # Generate random card
 def random_card(player_cards, player_score, num_cards):
 
@@ -20,7 +23,14 @@ def random_card(player_cards, player_score, num_cards):
         player_score += player_cards[-1]
 
     return(player_score)
-    
+
+def over_21(player_score):
+    if player_score > 21:
+        return True
+
+def display_scores():
+    print(f"Your final hand: {user_cards}, final score: {user_score}")
+    print(f"Computer's final hand: {computer_cards}, final score: {computer_score}")
     
 
 play = input("Do you want to play a game of Blackjack? Type 'y' or 'n': ")
@@ -46,7 +56,22 @@ if play == 'y':
             computer_score = random_card(computer_cards, computer_score, 1)
             print(f"Computer's first card: {computer_cards[0]}")
 
+            user_loses = over_21(user_score)
+            computer_loses = over_21(computer_score)
+
+
+            # Check if either or both players lost
+            if user_loses is True and computer_loses is True: # Both go over 21. Both lose
+                display_scores()
+                print("You both went over. Both lose.")
+            elif user_loses is True: # User goes over 21 and loses
+                display_scores()
+                print("You went over. You lose.")
+            elif computer_loses is True: # Computer goes over 21 and loses
+                display_scores()
+                print("Dealer went over. You win.")
+
+
         elif hit == 'n':
-            print(f"Your final hand: {user_cards}, final score: {user_score}")
-            print(f"Computer's final hand: {computer_cards}, final score: {computer_score}")
+            display_scores()
     
