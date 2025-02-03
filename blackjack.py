@@ -7,7 +7,10 @@ cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 def random_card(player_cards, player_score, num_cards):
 
     for i in range(num_cards):
-        player_cards.append(random.choice(cards))
+        add_card = player_cards.append(random.choice(cards))
+        if player_cards[-1] == 11 and player_score > 10: # if the player's score is over 10 and gets an ace, the ace will be given a value of 1
+            player_cards[-1] = 1
+            # print(f"Got an ace, but since player's score is above 10, the ace has been given a value of 1.")
 
     if num_cards > 1: # start: deals two cards
         for card in player_cards:
@@ -93,7 +96,7 @@ while True:
         # Print computer's first of two initial cards
         computer_score = random_card(computer_cards, computer_score, 2)
         print(f"Computer's first card: {computer_cards[0]}")
-        print(f"Computer's cards: {computer_cards}") # TEMPORARY: to show computers cards
+        print(f"Computer's cards: {computer_cards}") # TEMPORARY: to show computers cards -----------------------------------------
 
         # Check if either player got a blackjack on first two cards:
         game_over = over_21(user_score, computer_score, True) # set the hit == True so it doesnt trigger the latter half of over_21() code (game ends bc checks who has greater score)
@@ -110,13 +113,13 @@ while True:
                 user_score = random_card(user_cards, user_score, 1)
                 print(f"Your cards: {user_cards}, current score: {user_score}")
 
-                print(f"Computer's current score: {computer_score}") # TEMPORARY: To show computer's score
+                print(f"Computer's score before hitting: {computer_score}") # TEMPORARY: To show computer's score ------------------------
                 if computer_score < 17: # Computer must hit if their score is 16 or below
                     
                     computer_score = random_card(computer_cards, computer_score, 1)
                     
                 print(f"Computer's first card: {computer_cards[0]}")
-                print(f"Computer's cards: {computer_cards}") # TEMPORARY: to show computers cards
+                print(f"Computer's cards: {computer_cards}") # TEMPORARY: to show computers cards ---------------------------------
 
 
                 # Check if either or both players lost
